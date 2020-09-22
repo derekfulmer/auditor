@@ -20,7 +20,7 @@ def fetch_users():
 	# Function to fetch GitHub user accounts. Will need to paginate through
 	# the api. Can we use HTTP links headers for this?
 	# Get all users, parse JSON to return only IDs
-	# return output to function caller?
+	# Return output to function its caller for later use?
 	# Write data pulled from API to a file within a context manager?
 	pass
 
