@@ -11,6 +11,7 @@ Store credentials as environment variables and call them from the script
 Publish new file to S3 bucket.
 '''
 
+# GitHub credentials should be stored externally from script in a secrets.env file or similar.
 def get_creds():
 	username = os.getenv('GITHUB_USERNAME')
 	token = os.getenv('GITHUB_TOKEN')
@@ -18,7 +19,7 @@ def get_creds():
 
 def fetch_users():
 	url = 'https://api.github.com/orgs/ORG/members'
-	headers = {'application': 'vnd.github.wyandotte-preview+json'}
+	headers = {'application': 'vnd.github.v3+json'}
 
 	# Basic functionality below to show ability to hit API endpoint.
 	r = requests.get(url, headers)
@@ -31,3 +32,9 @@ def fetch_users():
 	pass
 
 
+'''
+Need a functions to:
+    - Parse the data from fetch_users() function.
+    - Look up repos and get their members.
+    - Push data to an S3 bucket.
+'''
