@@ -4,5 +4,8 @@ Annual and quarterly audits are common in many organizations. To make this *some
 
 ## To run
 `` virtualenv -p python3 venv``
+
 ``source venv/bin/activate``
+
 ``pip install -r requirements.txt``
+
