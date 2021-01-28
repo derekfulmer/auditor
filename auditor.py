@@ -12,29 +12,14 @@ Publish new file to S3 bucket.
 '''
 
 # GitHub credentials should be stored externally from script in a secrets.env file or similar.
-def get_creds():
-	username = os.getenv('GITHUB_USERNAME')
-	token = os.getenv('GITHUB_TOKEN')
-	return username token
+username = os.getenv('GITHUB_USERNAME')
+token = os.getenv('GITHUB_TOKEN')
 
 def fetch_users():
 	url = 'https://api.github.com/orgs/ORG/members'
-	headers = {'application': 'vnd.github.v3+json'}
+	auth = requests.auth.HTTPBasicAuth(GITHUB_USERNAME, GITHUB_TOKEN)
 
-	# Basic functionality below to show ability to hit API endpoint.
-	r = requests.get(url, headers)
+	# headers = {'application': 'vnd.github.v3+json'} Are these necessary?
 
-	# Function to fetch GitHub user accounts. Will need to paginate through
-	# the api. Can we use HTTP links headers for this?
-	# Get all users, parse JSON to return only IDs
-	# Return output to function its caller for later use?
-	# Write data pulled from API to a file within a context manager?
-	pass
+    r = requests.get(url, auth=auth)
 
-
-'''
-Need a functions to:
-    - Parse the data from fetch_users() function.
-    - Look up repos and get their members.
-    - Push data to an S3 bucket.
-'''
