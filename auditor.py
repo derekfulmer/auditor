@@ -16,10 +16,8 @@ username = os.getenv('GITHUB_USERNAME')
 token = os.getenv('GITHUB_TOKEN')
 
 def fetch_users():
-	url = 'https://api.github.com/orgs/ORG/members'
-	auth = requests.auth.HTTPBasicAuth(GITHUB_USERNAME, GITHUB_TOKEN)
-
-	# headers = {'application': 'vnd.github.v3+json'} Are these necessary?
+    url = 'https://api.github.com/orgs/ORG/members'
+    auth = requests.auth.HTTPBasicAuth(GITHUB_USERNAME, GITHUB_TOKEN)
+    # headers = {'application': 'vnd.github.v3+json'} Are these necessary?
 
     r = requests.get(url, auth=auth)
-
