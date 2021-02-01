@@ -24,17 +24,25 @@ except:
 
 
 def fetch_users():
-    url = 'https://api.github.com/orgs/ORG/members'
+    url = 'https://api.github.com/orgs/BLC/members'
     auth = requests.auth.HTTPBasicAuth(username, token)
 
     r = requests.get(url, auth=auth)
-    response = r.json()
+    #response = r.json()
     
     # This works, but only for the first 'page' of users returned in the response.
     # TODO: Paginate through all users using requests 'links' feature between the first and last page. Write it so that you aren't hardcoding the pages to the API call in case the list of pages grows in the future.
-    print([ sub['login'] for sub in response ])
+    #if r.links['url'] != r.links['last']:
+    print([ i['login'] for i in r.json() ])
 
 def write_user_file():
+    # Use the data from fetch_users() to write to a new file.
+    with open(fetch_users()) as f:
+        pass
+    pass
+
+def fetch_repos():
+    # Fetch repos by name.
     pass
 
 
