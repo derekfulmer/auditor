@@ -31,8 +31,12 @@ def fetch_users():
     response = r.json()
     
     # This works, but only for the first 'page' of users returned in the response.
-    # TODO: Paginate through all users.
+    # TODO: Paginate through all users using requests 'links' feature between the first and last page. Write it so that you aren't hardcoding the pages to the API call in case the list of pages grows in the future.
     print([ sub['login'] for sub in response ])
+
+def write_user_file():
+    pass
+
 
 if __name__ == '__main__':
     fetch_users()
