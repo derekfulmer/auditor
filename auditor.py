@@ -15,7 +15,7 @@ log = logging.getLogger('auditor')
 log.setLevel(logging.INFO)
 
 try:
-    load_dotenv()
+    load_dotenv() # Consider providing an absolute path.
     username = os.getenv('GITHUB_USERNAME')
     token = os.getenv('GITHUB_TOKEN')
 except:
@@ -33,7 +33,12 @@ def fetch_users():
     # This works, but only for the first 'page' of users returned in the response.
     # TODO: Paginate through all users using requests 'links' feature between the first and last page. Write it so that you aren't hardcoding the pages to the API call in case the list of pages grows in the future.
     #if r.links['url'] != r.links['last']:
-    print([ i['login'] for i in r.json() ])
+    current_link = r
+    last_link = r.links['last']['url']
+    
+    while current_link != last_link:
+        # Do GET requests
+        [ i['login'] for i in r.json() ]
 
 def write_user_file():
     # Use the data from fetch_users() to write to a new file.
