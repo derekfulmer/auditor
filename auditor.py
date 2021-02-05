@@ -22,7 +22,7 @@ except:
     logging.critical("ERROR: Have your GitHub credentials been exported as environment variables? You need your GitHub username and a Personal Acces Token which acts as your password.")
     exit(1)
 
-url = 'https://api.github.com/organizations/999904/members?page=1'
+url = 'https://api.github.com/orgs/ORG/members'
 
 def fetch_logins(url):
     auth = requests.auth.HTTPBasicAuth(username, token)
