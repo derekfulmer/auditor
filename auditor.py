@@ -22,34 +22,19 @@ except:
     logging.critical("ERROR: Have your GitHub credentials been exported as environment variables? You need your GitHub username and a Personal Acces Token which acts as your password.")
     exit(1)
 
+url = 'https://api.github.com/organizations/999904/members?page=1'
 
-def fetch_users():
-    url = 'https://api.github.com/orgs/BLC/members'
+def fetch_logins(url):
     auth = requests.auth.HTTPBasicAuth(username, token)
-
     r = requests.get(url, auth=auth)
-    #response = r.json()
-    
-    # This works, but only for the first 'page' of users returned in the response.
-    # TODO: Paginate through all users using requests 'links' feature between the first and last page. Write it so that you aren't hardcoding the pages to the API call in case the list of pages grows in the future.
-    #if r.links['url'] != r.links['last']:
-    current_link = r
-    last_link = r.links['last']['url']
-    
-    while current_link != last_link:
-        # Do GET requests
-        [ i['login'] for i in r.json() ]
+	
+	members = []
 
-def write_user_file():
-    # Use the data from fetch_users() to write to a new file.
-    with open(fetch_users()) as f:
-        pass
-    pass
-
-def fetch_repos():
-    # Fetch repos by name.
-    pass
-
+	# Make a GET request on page 1 and parse the JSON response.	    
+	# Make a GET request on page 2 and parse the JSON response.	    
+	# Make a GET request on page 3 and parse the JSON response.	    
+	# Make a GET request on page 4 and parse the JSON response.	    
+	# Make a GET request on page 5 and parse the JSON response.	    
 
 if __name__ == '__main__':
-    fetch_users()
+    fetch_logins(url)
