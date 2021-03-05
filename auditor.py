@@ -60,8 +60,28 @@ def fetch_logins(url, username, token, headers={}, per_page=30):
 
 def fetch_repos(url, username, token, headers={}, per_page=30):
     # Same general logic as the fetch_logins function, but we want it to be general enough so that we can fetch specific repos and their members.
-    pass
- 
+     """
+    :param url: The API URL endpoint
+    :param username: your GitHub username
+    :param token: Your API token (https://github.com/settings/tokens)
+    :param headers: Any additional headers to include
+    :param per_page: The maximum number of results to request from GitHub at a time (max 100, note 'all' in return val)
+    :return: List of ALL members that are 'Users'
+    """
+    # auth = requests.auth.HTTPBasicAuth(username, token)  # `requests` lib was updated so you can just pass a tuple
+    combined_headers = copy(HEADERS)  # copy() to avoid an indirect update of HEADERS
+    combined_headers.update(headers)
+
+    page = 1  # They don't number from 0 because they hate conventions apparently.
+    repos = []
+    repo_data = True
+    while repo_data:
+        # Setting per_page to 5 to force pagination because I'm not a member of an org with > 100 people.
+        # TODO: exception handling for failed 'get' request.
+        r = requests.get(url, auth=(username, token), headers=combined_headers,
+                         params={'per_page': per_page, 'page': page})
+
+
 def main():
     # Removed try/except -- load_dotenv() and os.getenv() did not raise exceptions when env variables were unset.
     load_dotenv()  # Consider providing an absolute path.
