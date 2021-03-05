@@ -20,7 +20,7 @@ log.setLevel(logging.INFO)
 HEADERS = {'accept': 'application/vnd.github.v3+json'}  # Docs recommend passing this in the headers
 
 
-def fetch_logins(url, username, token, headers={}, per_page=5):
+def fetch_logins(url, username, token, headers={}, per_page=30):
     """
     :param url: The API URL endpoint
     :param username: your GitHub username
@@ -58,7 +58,10 @@ def fetch_logins(url, username, token, headers={}, per_page=5):
 
     return members
 
-
+def fetch_repos(url, username, token, headers={}, per_page=30):
+    # Same general logic as the fetch_logins function, but we want it to be general enough so that we can fetch specific repos and their members.
+    pass
+ 
 def main():
     # Removed try/except -- load_dotenv() and os.getenv() did not raise exceptions when env variables were unset.
     load_dotenv()  # Consider providing an absolute path.
