@@ -58,7 +58,7 @@ def fetch_logins(url, username, token, headers={}, per_page=30):
 
     return members
 
-def fetch_repos(url, username, token, headers={}, per_page=30):
+def fetch_repos(repo_url, username, token, headers={}, per_page=30):
     # Same general logic as the fetch_logins function, but we want it to be general enough so that we can fetch specific repos and their members.
      """
     :param url: The API URL endpoint
@@ -76,10 +76,16 @@ def fetch_repos(url, username, token, headers={}, per_page=30):
     repos = []
     repo_data = True
     while repo_data:
-        # Setting per_page to 5 to force pagination because I'm not a member of an org with > 100 people.
         # TODO: exception handling for failed 'get' request.
-        r = requests.get(url, auth=(username, token), headers=combined_headers,
+        r = requests.get(repo_url, auth=(username, token), headers=combined_headers,
                          params={'per_page': per_page, 'page': page})
+    
+
+        log.debug('Request status code: %s' % r.status_code)
+        log.debug(json.dumps(r.json(), indent=2))
+
+    repo_data = r.json()
+    # TODO: Filter repos similar to the lambda in the fetch_logins function
 
 
 def main():
