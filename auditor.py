@@ -51,45 +51,17 @@ def fetch_logins(url, username, token, headers={}, per_page=30):
 
         # TODO: GitHub has the power to change what the keys are. We should bail out if they're not found
         # and they should be treated as constant variables so all uses can be updated in a single place
-        just_users = filter(lambda d: d['type'] == 'User', member_data)  # Not sure if "user" only output is the intent
+        just_users = filter(lambda d: d['type'] == 'User', member_data)
         members += [d['login'] for d in just_users]
         page += 1
         log.debug(members)
 
-    return members
+        all_members =  '\n'.join(members)
 
-def fetch_repos(repo_url, username, token, headers={}, per_page=30):
-    # Same general logic as the fetch_logins function, but we want it to be general enough so that we can fetch specific repos and their members.
-     """
-    :param url: The API URL endpoint
-    :param username: your GitHub username
-    :param token: Your API token (https://github.com/settings/tokens)
-    :param headers: Any additional headers to include
-    :param per_page: The maximum number of results to request from GitHub at a time (max 100, note 'all' in return val)
-    :return: List of ALL members that are 'Users'
-    """
-    # auth = requests.auth.HTTPBasicAuth(username, token)  # `requests` lib was updated so you can just pass a tuple
-    combined_headers = copy(HEADERS)  # copy() to avoid an indirect update of HEADERS
-    combined_headers.update(headers)
-
-    page = 1  # They don't number from 0 because they hate conventions apparently.
-    repos = []
-    repo_data = True
-    while repo_data:
-        # TODO: exception handling for failed 'get' request.
-        r = requests.get(repo_url, auth=(username, token), headers=combined_headers,
-                         params={'per_page': per_page, 'page': page})
-    
-
-        log.debug('Request status code: %s' % r.status_code)
-        log.debug(json.dumps(r.json(), indent=2))
-
-    repo_data = r.json()
-    # TODO: Filter repos similar to the lambda in the fetch_logins function
+    return all_members
 
 
 def main():
-    # Removed try/except -- load_dotenv() and os.getenv() did not raise exceptions when env variables were unset.
     load_dotenv()  # Consider providing an absolute path.
     username = os.getenv('GITHUB_USERNAME')
     token = os.getenv('GITHUB_TOKEN')
@@ -104,8 +76,12 @@ def main():
 
     url = 'https://api.github.com/orgs/{ORG}/members'.format(ORG=organization)
     members = fetch_logins(url, username, token)
-    print(members)
+    
+    with open('all_members.txt', 'w') as f:
+        f.write(members)
 
+    # TODO: Add some error checking to validate the print() statement below 
+    print('All members of your organization have been to a file in the current working directory.')
 
 if __name__ == '__main__':
     main()
