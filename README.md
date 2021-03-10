@@ -1,13 +1,12 @@
 # Auditor
-## An attempt at collecting and publishing data for groups within an organization.
+## An attempt at collecting and publishing an organization's GitHub account information.
 
 ### Summary
-Annual and quarterly audits are common in many organizations. To make this somewhat easier, this script will fetch, parse, and publish data based on needs I have discovered. Though I have intended to make it as portable and resuable as possible, it currently focuses on fetching organizational data from GitHub.
+Query the GitHub API to return user account ID's, repository statistics, etc.
 
-## To run
-`` virtualenv -p python3 venv``
+Created out of a need to regularly provide data for internal audits of applications and services used internally at an organization.
 
-``source venv/bin/activate``
-
-``pip install -r requirements.txt``
+### To Do
+- Publish the data to AWS S3
+- Send an email when the data has successfully been published
 
