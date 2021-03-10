@@ -63,7 +63,7 @@ def fetch_logins(url, username, token, headers={}, per_page=30):
 
 def fetch_repos(repo_url, username, token, headers={}, per_page=30):
     """
-    :param url: The API URL endpoint
+    :param repo_url: The API URL endpoint for repositories specified
     :param username: your GitHub username
     :param token: Your API token (https://github.com/settings/tokens)
     :param headers: Any additional headers to include
