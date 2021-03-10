@@ -72,7 +72,7 @@ def main():
     if not all([username, token, organization]):
         log.critical('ERROR: Have your GitHub credentials and target ORG been exported as environment variables? '
                      'You need your GitHub username and a Personal Access Token which acts as your password.')
-        exit(1)
+        sys.exit(1)
 
     url = 'https://api.github.com/orgs/{ORG}/members'.format(ORG=organization)
     members = fetch_logins(url, username, token)
